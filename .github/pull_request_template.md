@@ -1,24 +1,28 @@
-## Jira
+## 対応Jira
 TMGR-
 
-## Requirements and design
-- [ ] Acceptance criteria traced to Markdown design
-- [ ] Design and code changes synchronized
-- [ ] No automatic Confluence publishing
+## 変更概要
+<!-- 目的、変更範囲、対象外を日本語で記載 -->
 
-## Evidence
-- Format:
-- Analyze:
-- Tests:
-- Android build:
-- Security scans (if applicable):
+## 要件・設計の整合性
+- [ ] 受入条件とMarkdown設計書の対応を確認した
+- [ ] 設計書とコードを同じPRで更新した
+- [ ] Confluenceへの設計書自動投稿は行っていない
 
-## Independent review
-- Open P0:
-- Open P1:
-- Fix/re-review evidence:
-- Security review (high risk):
-- Residual risks / Not Verified:
+## 検証結果
+- フォーマット：
+- 静的解析：
+- テスト：
+- Androidビルド：
+- セキュリティ検査（対象時）：
+- 未実行項目と理由：
 
-## Approval
-- [ ] Human review before merge
+## 独立レビュー
+- 未解決P0：
+- 未解決P1：
+- 修正・再レビューの証跡：
+- セキュリティレビュー（高リスク変更時）：
+- 残余リスク・未検証事項：
+
+## 承認
+- [ ] 人間によるマージ前レビューを実施した
