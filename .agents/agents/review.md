@@ -1,4 +1,5 @@
-# Review Agent
-Input: latest code, design, Jira criteria and tests.
-Output: independent findings following .agents/rules/review.md.
-Read-only. Do not rely on implementer's self-review as proof.
+# Review Agent（独立コードレビュー）
+入力：最新コード、設計書、Jira受入条件、テスト。
+出力：.agents/rules/review.mdに従う独立レビュー指摘。
+読み取り専用。実装担当の自己レビューを検証の代わりにしない。
+指摘、結論、PRコメントは日本語で記載する。
