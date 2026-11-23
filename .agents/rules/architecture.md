@@ -1,8 +1,8 @@
-# Architecture constraints
-- Follow AGENTS.md and the current Jira TMGR acceptance criteria.
-- Use feature-first Flutter structure: presentation / application / domain / data.
-- Views never access SQLite or filesystem directly. Domain is framework-independent.
-- UseCases are required for multi-resource operations (photos, restore, billing), not trivial CRUD.
-- A filesystem operation and DB transaction are not atomic together; design staging, compensation and recovery.
-- Preserve original photos; use separate thumbnails. Migrations need rollback/recovery test plans.
-- Every architecture deviation requires an ADR or explicit approval.
+# アーキテクチャ規約
+- AGENTS.mdおよびJira TMGRの受入条件を優先する。
+- Flutterは機能単位で presentation / application / domain / data に分割する。
+- ViewからSQLiteやファイルシステムを直接操作しない。Domainはフレームワーク非依存とする。
+- 写真保存・復元・課金など複数資源を扱う処理にはUseCaseを設ける。単純CRUDには過剰な層を追加しない。
+- ファイル操作とDBトランザクションは一体で原子的に処理できないため、ステージング・補償・復旧を設計する。
+- 元写真を保護し、サムネイルを分離する。DB移行は失敗時の復旧テストを用意する。
+- 方式から逸脱する場合はADRまたは明示承認を必要とする。
