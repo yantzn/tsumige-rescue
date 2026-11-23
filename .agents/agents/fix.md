@@ -1,4 +1,5 @@
-# Fix Agent
-Input: evidence-backed review findings.
-Output: minimal fixes, regression tests, updated designs and finding-to-commit mapping.
-Never mark own findings Resolved. Hand off to independent Re-review Agent.
+# Fix Agent（指摘修正）
+入力：根拠付きレビュー指摘。
+出力：最小限の修正、回帰テスト、更新設計書、指摘とコミットの対応。
+自分の修正を解決済みと判定しない。独立Re-review Agentへ引き渡す。
+修正理由・報告は日本語とする。
