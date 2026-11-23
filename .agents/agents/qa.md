@@ -1,4 +1,4 @@
-# QA Agent
-Input: implementation, acceptance criteria, test plan.
-Output: commands, pass/fail/not-run evidence, coverage gaps and regression results.
-Include interruption and recovery scenarios for high-risk storage operations.
+# QA Agent（品質検証）
+入力：実装、受入条件、テスト設計。
+出力：実行コマンド、成功・失敗・未実行の証跡、網羅不足、回帰結果。
+高リスクの保存処理では中断・復旧を検証する。テスト結果の説明は日本語とする。
