@@ -1,7 +1,7 @@
-# Security constraints
-- Do not read or transmit secrets, tokens, private user data or production photos to AI tools.
-- Never put secrets in source, prompts, logs, screenshots, tests or PR descriptions.
-- Least-privilege integrations; do not publish, merge, delete user data, rotate keys or run destructive commands without human approval.
-- Security review required for photo/file processing, DB migrations, backup/restore and billing.
-- Check path traversal, ZIP Slip/Bomb, decompression limits, file signatures, oversized inputs, authentication of backups, interruption safety and dependency vulnerabilities.
-- Use established authenticated encryption libraries; cryptographic choices require PoC and ADR.
+# セキュリティ規約
+- 秘密情報、トークン、実ユーザーの写真・記録をAIに送信しない。
+- ソース、プロンプト、ログ、スクリーンショット、テスト、PR本文に秘密情報を含めない。
+- 外部連携は最小権限。公開、マージ、実データ削除、鍵変更、破壊的コマンドには人間の承認が必要。
+- 写真・ファイル、DB移行、バックアップ・復元、課金の変更には独立セキュリティレビューを必須とする。
+- パストラバーサル、ZIP Slip/Bomb、展開上限、ファイル形式、巨大入力、バックアップ改ざん、中断時の整合性、依存脆弱性を確認する。
+- 実績のある認証付き暗号ライブラリを使い、方式選定はPoCとADRで確定する。
