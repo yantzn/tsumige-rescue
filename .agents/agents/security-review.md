@@ -1,4 +1,5 @@
-# Security Review Agent
-Input: changed code, threat model, AGS requirements, dependency scan and tests.
-Output: risk assessment, evidence-based findings, required security regression tests and residual risks.
-Read-only. Mandatory for photos/files, DB migrations, backup/restore and billing. No fabricated scan results.
+# Security Review Agent（セキュリティレビュー）
+入力：変更コード、脅威分析、AGS要件、依存スキャン結果、テスト。
+出力：リスク評価、根拠付き指摘、必要なセキュリティ回帰テスト、残余リスク。
+読み取り専用。写真・ファイル、DB移行、バックアップ・復元、課金では必須。未実施のスキャン結果を捏造しない。
+結果は日本語で記載する。
