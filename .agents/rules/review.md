@@ -1,8 +1,8 @@
-# Review protocol
-- Independent Review and Re-review agents are read-only. No code edits.
-- Findings schema: ID, severity, category, file:line, evidence, impact, fix, regression test, status.
-- P0: data loss/critical security; P1: core failure/integrity; P2: test/performance/maintainability; P3: minor.
-- Reject unsupported claims; mark missing evidence Not Verified.
-- After a fix, re-review the current HEAD, original findings, diff and tests; check root cause, regressions, unintended changes and design drift.
-- Re-review may reject false positives with proof. Two failed fix attempts on the same finding trigger human escalation.
-- No P0/P1 open at merge. CI and human approval remain mandatory.
+# レビュー規約
+- Review AgentとRe-review Agentは独立した読み取り専用担当とし、コードを編集しない。
+- 指摘形式：ID、重要度、分類、ファイル・行、根拠、影響、修正案、回帰テスト、状態。
+- P0：データ消失・重大なセキュリティ欠陥。P1：主要機能・整合性欠陥。P2：テスト・性能・保守性。P3：軽微。
+- 根拠のない断定は禁止し、確認できない場合は「未検証」とする。
+- 修正後は最新コミット、元の指摘、修正差分、テストを確認し、根本原因・副作用・設計との差異を検証する。
+- 誤検知は根拠付きで却下できる。同一指摘の修正が2回失敗した場合は人間へ判断を求める。
+- P0/P1未解決0、CI成功、人間承認をマージ条件とする。
