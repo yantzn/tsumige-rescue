@@ -1,5 +1,6 @@
-# Agent handoff contract
-Every handoff must state: TMGR issue, source requirement version, input commit SHA, role, scope, changed files, decisions, findings, test commands/results, outstanding risks, next gate.
-Status values: PASS, FAIL, BLOCKED, NOT_VERIFIED, NOT_RUN.
-Review findings: ID | P0-P3 | category | file:line | evidence | impact | proposed fix | regression test | status.
-All claims must cite repository paths or actual tool results. No Confluence design publishing.
+# エージェント間の引き継ぎ契約
+引き継ぎにはTMGRキー、参照要件版、入力コミットSHA、担当、作業範囲、変更ファイル、判断、指摘、テストコマンド・結果、残余リスク、次の承認ゲートを含める。
+機械処理用状態値：PASS、FAIL、BLOCKED、NOT_VERIFIED、NOT_RUN。
+指摘項目：ID｜P0〜P3｜分類｜ファイル:行｜根拠｜影響｜修正案｜回帰テスト｜状態。
+根拠は実際のリポジトリ位置やツール実行結果に結び付ける。設計書のConfluence自動投稿は禁止する。
+説明、指摘、報告、PR内容は日本語で統一する。
