@@ -1,34 +1,39 @@
-# 積みゲー救出隊 — AI Agent Rules
+# 積みゲー救出隊 — AI開発エージェント共通規約
 
-## Sources
-- Jira TMGR: scope and acceptance criteria; Confluence: product requirements.
-- GitHub Markdown in docs/: generated designs, ADRs, tests and engineering rules.
-- Do not automatically publish generated designs to Confluence.
-- Unknown or conflicting requirements: stop and report Not Verified.
+## 言語規約
+- エージェント設定、生成する設計書、レビュー指摘、PRタイトル・本文・コメントは日本語で記述する。
+- ファイルパス、CLIコマンド、識別子、コード、外部サービスの正式名称は原文のままでよい。
+- 指摘やテスト結果の定型値（P0〜P3、PASS、FAIL、NOT_RUN等）は機械処理用の識別子として使用可能。
 
-## Execution
-- Antigravity is the primary agent environment. Verify whether the installed version discovers .agents/ files before enabling autonomous workflows.
-- Sequence: Requirements -> Design -> Design Review -> Implement -> QA -> Review -> Fix (when findings exist) -> Re-review -> PR.
-- Reviewers are read-only and independent of implementers. Human approval is required for merge.
-- Every change must trace to a TMGR issue. Keep designs and code synchronized in the same PR.
+## 情報の正本
+- Jira（TMGR）：タスクと受入条件。Confluence：既存の製品要件・上位判断。
+- GitHubの docs/：AIが作成するMarkdown設計書、ADR、テスト設計、開発規約の正本。
+- 生成した設計書をConfluenceへ自動投稿・同期しない。
+- 要件の不明点・矛盾・参照不能は推測せず「未検証」として停止・報告する。
 
-## Architecture
-- Flutter, Android first, iOS later, offline/local-first.
-- Feature-first MVVM with Riverpod and repository abstractions; Drift/SQLite remain subject to PoC and ADR.
-- Presentation must not directly manipulate SQL/files; domain must not depend on Flutter/Drift.
-- Preserve existing game records and original photos on failures.
+## Antigravityの実行方針
+- Antigravityを主な実行環境とする。.agents/ 配下は役割・規約・ワークフローの定義であり、実環境の自動認識・エージェント委譲はPoCで検証する。
+- 要件分析 → 設計 → 独立設計レビュー → 実装 → QA → 独立コードレビュー → 指摘修正 → 独立再レビュー → PRの順で実施する。
+- レビュー担当はコードを変更しない。実装担当が自己承認しない。PRマージは人間が承認する。
 
-## Review gates
-- Findings require ID, severity P0-P3, file/line, evidence, impact, fix, regression test and status.
-- Unresolved P0/P1 block merge. Mandatory CI must pass.
-- After each fix, independent Re-review validates root cause, regressions and side effects.
-- Stop and escalate after two failed fixes of the same finding.
+## アーキテクチャ
+- Flutter/Dart、Android先行・iOS後続、ローカルファースト。
+- Feature-first MVVM、Riverpod、Repository抽象、Drift/SQLiteを採用候補とし、最終決定はPoC・ADRに従う。
+- ViewからSQL・ファイルを直接操作しない。DomainをFlutter/Driftに依存させない。
+- 失敗時も既存のゲーム記録・元写真を保護する。
 
-## Security
-- Never transmit credentials, tokens, real user photos, private records or sensitive logs to AI tools.
-- Require Security Review for photos, DB migrations, backup/restore and billing.
-- Validate paths, file formats, size limits, archive traversal and decompression limits. Avoid custom cryptography.
+## 変更・品質ゲート
+- TMGRキーをブランチ・コミット・PR・docs/designs/TMGR-XX/に記載する。
+- 設計書とコードの変更は同じPRに含める。要件変更やスコープ拡大は事前承認する。
+- 指摘はID、重要度（P0〜P3）、箇所、根拠、影響、修正案、回帰テスト、状態を記録する。
+- P0/P1未解決または必須CI失敗の場合はマージしない。
+- 修正後は独立した再レビューで根本原因・副作用・回帰テストを確認する。同一指摘で修正が2回失敗したら停止・人間へ相談する。
 
-## Verification
-- When Flutter exists: dart format --output=none --set-exit-if-changed ., flutter analyze --fatal-infos, flutter test, Android build.
-- Record Not Run / Not Verified if environment or evidence is unavailable; never claim unexecuted tests passed.
+## セキュリティ
+- 秘密情報、トークン、実ユーザー写真、個人記録をAI入力・ログ・PRに含めない。連携権限は最小化する。
+- 写真・ファイル、DB移行、バックアップ・復元、課金はセキュリティレビューを必須とする。
+- パス、形式、容量、アーカイブ展開制限を検証する。独自暗号実装は避ける。
+
+## 検証
+- Flutter環境がある場合は dart format --output=none --set-exit-if-changed .、flutter analyze --fatal-infos、flutter test、Androidビルドを実行する。
+- 実行できない検証は「未実行」と明記し、成功したと偽らない。
