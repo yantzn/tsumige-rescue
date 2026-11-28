@@ -102,17 +102,17 @@
   {
     "id": "SK-21",
     "name": "atlassian-integration",
-    "status": "planned"
+    "status": "initial"
   },
   {
     "id": "SK-22",
     "name": "jira-integration",
-    "status": "planned"
+    "status": "initial"
   },
   {
     "id": "SK-23",
     "name": "confluence-integration",
-    "status": "planned"
+    "status": "initial"
   },
   {
     "id": "SK-24",
