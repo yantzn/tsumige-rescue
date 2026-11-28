@@ -1,10 +1,12 @@
 """チケット単位のチェックポイントを保存する。"""
 
+import argparse
 from contextlib import closing, contextmanager
 import json
 from pathlib import Path
 import re
 import sqlite3
+import sys
 
 
 STATES = {
@@ -48,6 +50,22 @@ class Checkpoint:
             (json.dumps(state, ensure_ascii=False, sort_keys=True),),
         )
 
+    def resume(self, target_sha, requirements_hash):
+        state = self.load()
+        if state is None:
+            raise ValueError("再開できるチェックポイントがありません。")
+        if state["targetSha"] != target_sha or state["requirementsHash"] != requirements_hash:
+            raise ValueError("対象SHAまたは要件ハッシュが保存済みの証跡と一致しません。")
+        return state
+
+    def reserve_pr(self, target_sha, requirements_hash):
+        state = self.resume(target_sha, requirements_hash)
+        if state["stage"] != "PR_READY":
+            raise ValueError("PR_READYの証跡がありません。")
+        if self.connection.execute("SELECT 1 FROM pr_reservation WHERE id = 1").fetchone():
+            raise ValueError("PR作成の予約済みです。既存PRと実行履歴を確認してください。")
+        self.connection.execute("INSERT INTO pr_reservation (id) VALUES (1)")
+
 
 @contextmanager
 def checkpoint_transaction(directory, ticket):
@@ -64,4 +82,40 @@ def checkpoint_transaction(directory, ticket):
                 "CREATE TABLE IF NOT EXISTS checkpoint ("
                 "id INTEGER PRIMARY KEY CHECK (id = 1), payload TEXT NOT NULL)"
             )
+            connection.execute(
+                "CREATE TABLE IF NOT EXISTS pr_reservation (id INTEGER PRIMARY KEY CHECK (id = 1))"
+            )
             yield Checkpoint(connection, ticket)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("operation", choices=("save", "resume", "reserve-pr"))
+    parser.add_argument("ticket")
+    parser.add_argument("--directory", default=".agent-state")
+    parser.add_argument("--target-sha", required=True)
+    parser.add_argument("--requirements-hash", required=True)
+    parser.add_argument("--stage", choices=sorted(STATES))
+    args = parser.parse_args()
+    try:
+        result = {"status": "PASS"}
+        with checkpoint_transaction(args.directory, args.ticket) as checkpoint:
+            if args.operation == "save":
+                checkpoint.save({
+                    "schemaVersion": 1, "ticket": args.ticket, "stage": args.stage,
+                    "targetSha": args.target_sha, "requirementsHash": args.requirements_hash,
+                })
+            elif args.operation == "resume":
+                result["checkpoint"] = checkpoint.resume(args.target_sha, args.requirements_hash)
+            else:
+                checkpoint.reserve_pr(args.target_sha, args.requirements_hash)
+        print(json.dumps(result))
+        return 0
+    except (OSError, ValueError, sqlite3.Error) as error:
+        print(str(error), file=sys.stderr)
+        print(json.dumps({"status": "BLOCKED"}))
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

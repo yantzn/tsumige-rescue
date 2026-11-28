@@ -1,6 +1,8 @@
 import importlib.util
 from pathlib import Path
 import sqlite3
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -52,3 +54,36 @@ class CheckpointTest(unittest.TestCase):
                 self.assertIsNone(checkpoint.load())
         with self.transaction() as checkpoint:
             self.assertIsNone(checkpoint.load())
+
+    def test_resume_and_single_pr_reservation(self):
+        sha, digest = self.state["targetSha"], self.state["requirementsHash"]
+        with self.transaction() as checkpoint:
+            checkpoint.save(dict(self.state, stage="PR_READY"))
+        with self.transaction() as checkpoint:
+            self.assertEqual(checkpoint.resume(sha, digest)["stage"], "PR_READY")
+            for wrong_sha, wrong_digest in (("3" * 40, digest), (sha, "4" * 64)):
+                with self.assertRaises(ValueError):
+                    checkpoint.resume(wrong_sha, wrong_digest)
+            checkpoint.reserve_pr(sha, digest)
+        with self.transaction() as checkpoint:
+            with self.assertRaisesRegex(ValueError, "予約済み"):
+                checkpoint.reserve_pr(sha, digest)
+
+    def test_forced_process_exit_recovers_last_commit(self):
+        with self.transaction() as checkpoint:
+            checkpoint.save(self.state)
+        child = """
+import os
+import sys
+import checkpoint
+with checkpoint.checkpoint_transaction(sys.argv[1], sys.argv[2]) as state:
+    state.save(dict(state.load(), stage='DESIGNED'))
+    os._exit(42)
+"""
+        result = subprocess.run(
+            [sys.executable, "-c", child, self.directory, self.ticket],
+            cwd=SCRIPT.parent, capture_output=True, timeout=10,
+        )
+        self.assertEqual(result.returncode, 42, result.stderr.decode(errors="replace"))
+        with self.transaction() as checkpoint:
+            self.assertEqual(checkpoint.load(), self.state)
