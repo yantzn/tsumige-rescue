@@ -57,7 +57,7 @@ try {
             schemaVersion = 1
             site = $site
             issueKey = $issue.key
-            issueVersion = [string]$issue.updated
+            issueVersion = 'updated:' + ([DateTimeOffset]$issue.updated).ToUniversalTime().ToString('o')
             issueHash = Get-Sha256 (ConvertTo-Json -InputObject $issue.description -Depth 100 -Compress)
             pageId = $page.id
             pageVersion = $page.snapshotToken
