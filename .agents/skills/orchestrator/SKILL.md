@@ -17,3 +17,5 @@ description: TMGRのorchestrator工程で使用する。
 要件確認時に atlassian-integration でスナップショットを採取する。PR_READY に進む直前に Verify を実行し、終了コード0かつ PASS の証跡を残す。変更・取得失敗・証跡なしは BLOCKED。差分は人間と確認し、承認した要件で新しいスナップショットを採取する。
 
 工程境界で checkpoint-management を適用する。中断後は現在のHEADと最新照合済みの要件ハッシュを確認してから再開する。PR作成前は既存PRを確認し、新規作成が必要な場合は予約の PASS を確認する。
+
+工程ごとの呼び出しと分岐は docs/designs/TMGR-429/skill-routing.md に従う。quality-gate で判定し、失敗時は failure-analysis で再試行可否を判断する。各判定を対象SHA・指摘ID・入力と出力の参照先に結び付ける。
