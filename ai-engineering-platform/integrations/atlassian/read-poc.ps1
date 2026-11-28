@@ -1,10 +1,11 @@
-param(
+﻿param(
     [string]$Twg = 'twg',
     [string]$IssueKey = 'TMGR-420',
     [string]$PageId = '16580612'
 )
 
 $ErrorActionPreference = 'Stop'
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $site = 'https://yantzn.atlassian.net'
 
 function Read-TwgJson([string[]]$Command) {
