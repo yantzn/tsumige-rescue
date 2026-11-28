@@ -1,0 +1,1 @@
+{"required": ["dart-format", "flutter-analyze", "flutter-test", "android-build"]}

@@ -1,0 +1,132 @@
+[
+  {
+    "id": "SK-01",
+    "name": "orchestrator",
+    "status": "initial"
+  },
+  {
+    "id": "SK-02",
+    "name": "task-decomposition",
+    "status": "planned"
+  },
+  {
+    "id": "SK-03",
+    "name": "checkpoint-management",
+    "status": "planned"
+  },
+  {
+    "id": "SK-04",
+    "name": "quality-gate",
+    "status": "planned"
+  },
+  {
+    "id": "SK-05",
+    "name": "failure-analysis",
+    "status": "planned"
+  },
+  {
+    "id": "SK-06",
+    "name": "context-management",
+    "status": "initial"
+  },
+  {
+    "id": "SK-07",
+    "name": "requirements-analysis",
+    "status": "initial"
+  },
+  {
+    "id": "SK-08",
+    "name": "requirements-traceability",
+    "status": "planned"
+  },
+  {
+    "id": "SK-09",
+    "name": "system-design",
+    "status": "initial"
+  },
+  {
+    "id": "SK-10",
+    "name": "test-design",
+    "status": "planned"
+  },
+  {
+    "id": "SK-11",
+    "name": "design-review",
+    "status": "initial"
+  },
+  {
+    "id": "SK-12",
+    "name": "implementation",
+    "status": "initial"
+  },
+  {
+    "id": "SK-13",
+    "name": "test-execution",
+    "status": "initial"
+  },
+  {
+    "id": "SK-14",
+    "name": "code-review",
+    "status": "initial"
+  },
+  {
+    "id": "SK-15",
+    "name": "security-review",
+    "status": "initial"
+  },
+  {
+    "id": "SK-16",
+    "name": "fix",
+    "status": "initial"
+  },
+  {
+    "id": "SK-17",
+    "name": "fix-verification",
+    "status": "initial"
+  },
+  {
+    "id": "SK-18",
+    "name": "flutter-architecture",
+    "status": "planned"
+  },
+  {
+    "id": "SK-19",
+    "name": "flutter-implementation",
+    "status": "planned"
+  },
+  {
+    "id": "SK-20",
+    "name": "flutter-testing",
+    "status": "planned"
+  },
+  {
+    "id": "SK-21",
+    "name": "atlassian-integration",
+    "status": "planned"
+  },
+  {
+    "id": "SK-22",
+    "name": "jira-integration",
+    "status": "planned"
+  },
+  {
+    "id": "SK-23",
+    "name": "confluence-integration",
+    "status": "planned"
+  },
+  {
+    "id": "SK-24",
+    "name": "github-integration",
+    "status": "planned"
+  },
+  {
+    "id": "SK-25",
+    "name": "platform-evaluation",
+    "status": "planned"
+  },
+  {
+    "id": "SK-26",
+    "name": "platform-improvement",
+    "status": "planned"
+  }
+]
