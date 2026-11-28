@@ -17,12 +17,12 @@
   {
     "id": "SK-04",
     "name": "quality-gate",
-    "status": "planned"
+    "status": "initial"
   },
   {
     "id": "SK-05",
     "name": "failure-analysis",
-    "status": "planned"
+    "status": "initial"
   },
   {
     "id": "SK-06",
